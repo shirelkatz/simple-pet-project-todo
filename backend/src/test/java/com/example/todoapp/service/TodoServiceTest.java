@@ -30,11 +30,25 @@ public class TodoServiceTest {
 
     @Test
     public void getTodos_shouldReturnTodos() {
-        given(todoRepository.findAll()).willReturn(Collections.singletonList(new Todo()));
+        // create a todo object with specific values
+        Todo todo = new Todo();
+        todo.setId(1L);
+        todo.setText("Get milk");
+        todo.setCompleted(false);
+
+        // use the todo object in the mock setup
+        given(todoRepository.findAll()).willReturn(Collections.singletonList(todo));
+
         List<Todo> todos = todoService.getTodos();
+
+        // test the count
         assertEquals(1, todos.size());
+
+        // test the content
+        Todo returnedTodo = todos.get(0);
+        assertEquals(todo.getId(), returnedTodo.getId());
+        assertEquals(todo.getText(), returnedTodo.getText());
+        assertEquals(todo.getCompleted(), returnedTodo.getCompleted());
     }
-
-
 
 }

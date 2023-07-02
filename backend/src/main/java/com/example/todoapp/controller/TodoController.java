@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/todos")
+@RequestMapping("api/todos")
 public class TodoController {
     private final TodoService todoService;
     public TodoController(TodoService todoService) {
@@ -25,4 +25,8 @@ public class TodoController {
         return todoService.addTodo(todo);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteTodo(@PathVariable Long id) {
+        todoService.deleteTodo(id);
+    }
 }

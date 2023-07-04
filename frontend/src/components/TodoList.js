@@ -9,6 +9,15 @@ function TodoList() {
             .then(data => setTodos(data));
     }, []);
 
+    const handleDelete = (id) => {
+        fetch(`http://localhost:8080/api/todos/${id}`, {
+            method: 'DELETE',
+        })
+            .then(() => {
+                setTodos(todos.filter((todo) => todo.id !== id));
+            });
+    };
+
     return (
         <div>
             <h1>Todo List</h1>
@@ -16,6 +25,7 @@ function TodoList() {
                 <div key={todo.id}>
                     <h2>{todo.text}</h2>
                     <p>{todo.done ? 'Completed' : 'Incomplete'}</p>
+                    <button onClick={() => handleDelete(todo.id)}>Delete</button>
                 </div>
             ))}
         </div>
